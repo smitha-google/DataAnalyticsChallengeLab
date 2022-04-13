@@ -1,5 +1,7 @@
 # DataAnalyticsChallengeLab
 
+Lab - https://partner.cloudskillsboost.google/focuses/18948?parent=catalog <br>
+
 The goal of this challenge lab is for you to analyze a set of e-commerce data to gain customer insight and use Artificial Intelligence to understand and anticipate risks & opportunities. Additionally, you will create a video object tracking pipeline prototype using Cloud AI and the Video Analysis API.
 
 # Scenario
