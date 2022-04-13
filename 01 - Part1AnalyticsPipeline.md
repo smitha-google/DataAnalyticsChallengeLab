@@ -103,6 +103,10 @@ having transactions > 0
 
 ```
 
+### Cleanup <br>
+Once you have verified that you have completed all of the above tasks by scoring the maximum number of points possible on each of the activity tracking components, open the navigation menu and select Dataflow.
+
+Select your ecommerce Dataflow job and click Stop > Cancel. Move on to the following section once you've verified that your ecommerce job has fully halted.
 
 
 
