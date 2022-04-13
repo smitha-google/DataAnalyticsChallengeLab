@@ -3,7 +3,7 @@
 The goal of this challenge lab is for you to analyze a set of e-commerce data to gain customer insight and use Artificial Intelligence to understand and anticipate risks & opportunities. Additionally, you will create a video object tracking pipeline prototype using Cloud AI and the Video Analysis API.
 
 Scenario
-cymbal_direct_horiz.png
+![image](https://user-images.githubusercontent.com/102045161/163252403-cd300f43-503f-4db8-9acd-55ab5f08e1ae.png)
 
 You are an engineer at Cymbal Direct. Due to COVID-19 and shifts in customer preferences, they are looking for a way to more quickly understand customer patterns and better coordinate inventory between brick-and-mortar and web properties.
 
