@@ -37,6 +37,7 @@ gcloud run deploy pubsub-proxy --image <image_name>
 ```
 ##### After you create the service - go to the Permissions page and add this - Only authenticated invocations are allowed for this service.
 ##### To allow unauthenticated invocations, add "allUsers" as a principal and assign it the "Cloud Run invoker" role.
+##### Make a note of the Cloud run Service url. You will need it in later steps 
 
 #### Task 4: Create a BigQuery dataset and table <br>
 
@@ -59,6 +60,49 @@ export ECOMMERCE_SUBSCRIPTION=ecommerce-events-pull
 gcloud pubsub topics create ${ECOMMERCE_TOPIC}
 gcloud pubsub subscriptions create ${ECOMMERCE_SUBSCRIPTION} --topic=${ECOMMERCE_TOPIC}
 ```
+#### Task 6: Deploy a Dataflow template to process Cloud PubSub messages <br>
+
+Deploy a Dataflow template to process Cloud PubSub messages into BigQuery <br>
+
+```
+export STAGING_TABLE=cepfpart1staging
+gsutil mb -c standard -l ${REGION} gs://${VIDEO_CLIPS_BUCKET}
+gcloud dataflow jobs run ecommerce-events-ps-to-bq-stream --gcs-location gs://dataflow-templates-us-central1/latest/PubSub_Subscription_to_BigQuery --region us-central1 --staging-location gs://${STAGING_TABLE}/temp --parameters inputSubscription=projects/${PROJECT_ID}/subscriptions/${ECOMMERCE_SUBSCRIPTION},outputTableSpec=$PROJECT_ID:retail_dataset.ecommerce_events
+```
+#### Task 7: Post JSON data to your fully managed service <br>
+
+Test the ecommerce pipeline by submitting JSON object data to the Cloud Run service endpoint. <br>
+
+The cloud run service url you captured in deploy step
+
+```
+curl -vX POST [CLOUD RUN SERVICE URL]/json -d @[JSON DATA FILE] --header "Content-Type: application/json"
+```
+Generate ecommerce view data using the ecommerce_view_event.json data file <br>
+Generate ecommerce add_item data using the ecommerce_add_to_cart_event.json data file <br>
+Generate ecommerce purchase data using the ecommerce_purchase_event.json data file <br>
+
+#### Task 8: Query ecommerce event data from BigQuery <br>
+
+##### Query pulls all event_datetime, event, user_id data from ecommerce_events table.
+
+```
+SELECT event_datetime, event, user_id  
+FROM `qwiklabs-gcp-01-38493cf3fb53.retail_dataset.ecommerce_events`
+```
+##### Query pulls all event, transactions and revenue data from ecommerce_events table.
+
+```
+select 
+    event, 
+    count(distinct ecommerce.purchase.transaction_id) as transactions,
+    sum(ecommerce.purchase.value) as revenue
+from `qwiklabs-gcp-02-f1163f3067e7.retail_dataset.ecommerce_events`
+group by event
+having transactions > 0
+
+```
+
 
 
 
