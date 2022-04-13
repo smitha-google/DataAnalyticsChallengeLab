@@ -1,4 +1,4 @@
-## 0. Part 1 Analytics Pipeline
+## Part 1 Analytics Pipeline
 
 #### Task 1: Configure your environment <br>
 
