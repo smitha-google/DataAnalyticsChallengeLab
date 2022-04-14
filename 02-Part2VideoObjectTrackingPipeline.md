@@ -1,5 +1,7 @@
 ## Part 1 Video object tracking pipelines 
 
+https://github.com/GoogleCloudPlatform/dataflow-video-analytics#build-run
+
 #### Task 1: Configure your environment <br>
 
 ```
